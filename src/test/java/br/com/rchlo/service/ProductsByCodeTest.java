@@ -63,9 +63,7 @@ class ProductsByCodeTest {
 
     @Test
     void shouldNotAcceptANullList() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            productsByCode.filter(1L, null);
-        });
+        assertThrows(IllegalArgumentException.class, () -> productsByCode.filter(1L, null));
     }
 
     private Product aTShirt() {
