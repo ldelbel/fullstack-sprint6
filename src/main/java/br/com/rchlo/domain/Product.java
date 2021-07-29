@@ -11,7 +11,7 @@ public class Product {
     private final String description;
     private final String slug;
     private final String brand;
-    private final BigDecimal price;
+    private BigDecimal price;
     private final BigDecimal discount;
     private final Color color;
     private final Integer weightInGrams;
@@ -54,6 +54,17 @@ public class Product {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public void setPrice(BigDecimal newPrice) {
+        this.price = newPrice;
+    }
+
+    public BigDecimal getEffectivePrice() {
+        if (this.discount != null) {
+            setPrice(this.price.subtract(this.discount));
+        }
+        return getPrice();
     }
 
     public BigDecimal getDiscount() {
