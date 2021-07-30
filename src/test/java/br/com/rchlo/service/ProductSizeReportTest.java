@@ -2,15 +2,16 @@ package br.com.rchlo.service;
 
 import br.com.rchlo.domain.Product;
 import br.com.rchlo.service.Nursery.ProductMother;
-import org.junit.jupiter.api.*;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductColorsReportTest {
+class ProductSizeReportTest {
 
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -36,24 +37,20 @@ class ProductColorsReportTest {
 
     @Test
     void shouldThrowIllegalArgumentExceptionIfListIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> ProductColorsReport.report(null));
+        assertThrows(IllegalArgumentException.class, () -> ProductSizeReport.report(null));
     }
 
     @Test
     void shouldIncludeCorrectOcurrencesOnDisplay() {
-        ProductColorsReport.report(List.of(jacket, tshirt));
+        ProductSizeReport.report(List.of(jacket, tshirt));
 
         assertTrue(outputStreamCaptor.toString()
-                .trim().contains("Cor: BLUE ---> Número de produtos: 1"));
+                .trim().contains("Tamanho: LARGE\n ---> Produtos: \nCódigo: 13834193 -- Nome: Jaqueta Puffer Juvenil Com Capuz Super Mario"));
         assertTrue(outputStreamCaptor.toString()
-                .trim().contains("Cor: GREEN ---> Número de produtos: 0"));
+                .trim().contains("Tamanho: SMALL\n ---> Produtos: \nCódigo: 14124998 -- Nome: Camiseta Infantil Manga Curta Super Mario"));
         assertTrue(outputStreamCaptor.toString()
-                .trim().contains("Cor: GRAY ---> Número de produtos: 0"));
+                .trim().contains("Tamanho: EXTRA_LARGE\n ---> Produtos: \nCódigo: 13834193 -- Nome: Jaqueta Puffer Juvenil Com Capuz Super Mario"));
         assertTrue(outputStreamCaptor.toString()
-                .trim().contains("Cor: PINK ---> Número de produtos: 0"));
-        assertTrue(outputStreamCaptor.toString()
-                .trim().contains("Cor: RED ---> Número de produtos: 0"));
-        assertTrue(outputStreamCaptor.toString()
-                .trim().contains("Cor: WHITE ---> Número de produtos: 1"));
+                .trim().contains("Tamanho: MEDIUM\n ---> Produtos: \nCódigo: 14124998 -- Nome: Camiseta Infantil Manga Curta Super Mario"));
     }
 }

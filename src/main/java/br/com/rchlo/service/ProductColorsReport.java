@@ -3,17 +3,14 @@ package br.com.rchlo.service;
 import br.com.rchlo.domain.Color;
 import br.com.rchlo.domain.Product;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
+import java.util.*;
 
 public class ProductColorsReport {
 
-    private static Map<Color, Integer> colorReport = new HashMap<>();
+    private static Map<Color, Integer> colorReport = new HashMap();
 
     public static void report(List<Product> list) {
+        if (list == null) { throw new IllegalArgumentException("List must be given and must be valid."); }
 
         for (Color value : Color.values()) {
             colorReport.put(value, 0);

@@ -10,9 +10,10 @@ import java.util.Map;
 
 public class ProductSizeReport {
 
-    private static Map<Size, List<Product>> sizeReport = new HashMap<>();
+    private static final Map<Size, List<Product>> sizeReport = new HashMap<>();
 
     public static void report(List<Product> list) {
+        if (list == null) { throw new IllegalArgumentException("List must be given and must be valid"); }
 
         for (Size value : Size.values()) {
             sizeReport.put(value, new ArrayList<>());
