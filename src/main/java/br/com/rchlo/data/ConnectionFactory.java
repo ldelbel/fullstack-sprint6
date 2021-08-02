@@ -19,7 +19,7 @@ public class ConnectionFactory {
 
     public static Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://root:123456@localhost:3306/rchlo");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/rchlo", "root", "Kasparov1@");
         } catch (SQLException ex) {
             throw new IllegalStateException("Error while connecting with database", ex);
         }

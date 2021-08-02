@@ -1,20 +1,18 @@
 package br.com.rchlo.dto;
 
 import br.com.rchlo.domain.PaymentStatus;
-
+import br.com.rchlo.data.PaymentRepository;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 
 public class PaymentStatistics {
 
-    private BigDecimal maximumAmountOfConfirmedPayment;
+    private final BigDecimal maximumAmountOfConfirmedPayment;
     private Map<PaymentStatus, Long> paymentsByStatus;
 
-    public PaymentStatistics(BigDecimal maximumAmountOfConfirmedPayment) {
-        this.maximumAmountOfConfirmedPayment = maximumAmountOfConfirmedPayment;
-        paymentsByStatus = new HashMap<>();
+    public PaymentStatistics(PaymentRepository payments) {
+        this.maximumAmountOfConfirmedPayment = payments.getMaxValueFromConfirmedPayments();
+        this.paymentsByStatus = payments.getPaymentsByStatus();
     }
 
     public BigDecimal getMaximumAmountOfConfirmedPayment() {
@@ -25,13 +23,4 @@ public class PaymentStatistics {
         return this.paymentsByStatus;
     }
 
-    public void addPaymentForStatus(PaymentStatus status) {
-        Long quantity = this.paymentsByStatus.get(status);
-        if (quantity == null) {
-            quantity = 1L;
-        } else {
-            quantity++;
-        }
-        this.paymentsByStatus.put(status, quantity);
-    }
 }
