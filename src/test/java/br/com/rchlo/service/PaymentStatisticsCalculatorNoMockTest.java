@@ -11,14 +11,12 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public class PaymentStatisticsCalculatorNoMockTest {
-    private PaymentStatisticsCalculator paymentStatisticsCalculator;
     private PaymentStatistics paymentStatistics;
-    private PaymentRepository paymentRepository;
 
     @BeforeEach
     void setUp() {
-        paymentRepository = new PaymentRepository();
-        paymentStatisticsCalculator = new PaymentStatisticsCalculator(paymentRepository);
+        PaymentRepository paymentRepository = new PaymentRepository();
+        PaymentStatisticsCalculator paymentStatisticsCalculator = new PaymentStatisticsCalculator(paymentRepository);
         paymentStatistics = paymentStatisticsCalculator.calculate();
     }
 

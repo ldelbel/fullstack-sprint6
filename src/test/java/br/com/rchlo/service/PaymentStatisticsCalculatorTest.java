@@ -4,6 +4,7 @@ import br.com.rchlo.data.PaymentRepository;
 import br.com.rchlo.domain.PaymentStatus;
 import br.com.rchlo.dto.PaymentStatistics;
 import br.com.rchlo.service.Nursery.PaymentsMother;
+import br.com.rchlo.service.Nursery.StatusMapMother;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +18,6 @@ import java.util.Map;
 
 class PaymentStatisticsCalculatorTest {
 
-    private PaymentStatisticsCalculator paymentStatisticsCalculator;
     private PaymentStatistics paymentStatistics;
 
     @Mock
@@ -27,7 +27,9 @@ class PaymentStatisticsCalculatorTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         Mockito.when(paymentRepository.all()).thenReturn(PaymentsMother.all());
-        paymentStatisticsCalculator = new PaymentStatisticsCalculator(paymentRepository);
+        Mockito.when(paymentRepository.getMaxValueFromConfirmedPayments()).thenReturn(new BigDecimal("200.00"));
+        Mockito.when(paymentRepository.getPaymentsByStatus()).thenReturn(StatusMapMother.create());
+        PaymentStatisticsCalculator paymentStatisticsCalculator = new PaymentStatisticsCalculator(paymentRepository);
         paymentStatistics = paymentStatisticsCalculator.calculate();
     }
 
